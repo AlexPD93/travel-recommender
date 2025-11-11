@@ -102,13 +102,13 @@ export default function Page() {
   {/* Age */}
   <div className="flex flex-col">
     <label htmlFor="age" className="mb-1 font-medium text-gray-700">
-      Favourite Colour
+      Age
     </label>
     <input
       id="age"
       {...register("age")}
       className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-      placeholder="Enter your favourite colour"
+      placeholder="Enter your age"
     />
     {errors.age && (
       <p className="text-red-500 mt-1 text-sm">{errors.age.message}</p>
@@ -120,19 +120,12 @@ export default function Page() {
     <label htmlFor="style" className="mb-1 font-medium text-gray-700">
       Travel style
     </label>
-    <select
+     <input
       id="style"
       {...register("style")}
       className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-    >
-      <option value="" disabled>
-        Travel style
-      </option>
-      <option value="Spring">Spring</option>
-      <option value="Summer">Summer</option>
-      <option value="Autumn">Autumn</option>
-      <option value="Winter">Winter</option>
-    </select>
+      placeholder="Enter your travel style e.g. 'Relaxed'"
+    />
     {errors.style && (
       <p className="text-red-500 mt-1 text-sm">{errors.style.message}</p>
     )}
