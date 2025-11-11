@@ -9,9 +9,9 @@ import { db } from "../lib/firebase"; // adjust path if needed
 
 const FormSchema = z.object({
   username: z.string().min(2),
-  color: z.string().min(1),
-  season: z.enum(["Spring", "Summer", "Autumn", "Winter"]),
-  activity: z.string().min(1),
+  age: z.string().min(1),
+  style: z.string().min(3),
+  activity: z.string().min(3),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -21,8 +21,8 @@ export default function Page() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: "",
-      color: "",
-      season: "Spring",
+      age: "",
+      style: "",
       activity: "",
     },
   });
@@ -57,8 +57,8 @@ export default function Page() {
     // 2) save to Firestore
     await addDoc(collection(db, "recommendations"), {
       username: data.username,
-      color: data.color,
-      season: data.season,
+      age: data.age,
+      style: data.style,
       activity: data.activity,
       city,
       country,
@@ -99,42 +99,42 @@ export default function Page() {
     )}
   </div>
 
-  {/* Favourite Colour */}
+  {/* Age */}
   <div className="flex flex-col">
-    <label htmlFor="color" className="mb-1 font-medium text-gray-700">
+    <label htmlFor="age" className="mb-1 font-medium text-gray-700">
       Favourite Colour
     </label>
     <input
-      id="color"
-      {...register("color")}
+      id="age"
+      {...register("age")}
       className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       placeholder="Enter your favourite colour"
     />
-    {errors.color && (
-      <p className="text-red-500 mt-1 text-sm">{errors.color.message}</p>
+    {errors.age && (
+      <p className="text-red-500 mt-1 text-sm">{errors.age.message}</p>
     )}
   </div>
 
-  {/* Favourite Season */}
+  {/* Favourite style */}
   <div className="flex flex-col">
-    <label htmlFor="season" className="mb-1 font-medium text-gray-700">
-      Favourite Season
+    <label htmlFor="style" className="mb-1 font-medium text-gray-700">
+      Travel style
     </label>
     <select
-      id="season"
-      {...register("season")}
+      id="style"
+      {...register("style")}
       className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
     >
       <option value="" disabled>
-        Select a season
+        Travel style
       </option>
       <option value="Spring">Spring</option>
       <option value="Summer">Summer</option>
       <option value="Autumn">Autumn</option>
       <option value="Winter">Winter</option>
     </select>
-    {errors.season && (
-      <p className="text-red-500 mt-1 text-sm">{errors.season.message}</p>
+    {errors.style && (
+      <p className="text-red-500 mt-1 text-sm">{errors.style.message}</p>
     )}
   </div>
 
@@ -163,7 +163,6 @@ export default function Page() {
   </button>
 </form>
 
-
       <section>
         <h2 className="text-xl font-semibold mb-2">Timeline</h2>
         <ul className="space-y-3">
@@ -171,7 +170,7 @@ export default function Page() {
             <li key={item.id} className="border p-3 rounded shadow-sm">
               <div className="text-sm text-gray-500">{new Date(item.createdAt?.toDate?.() ?? Date.now()).toLocaleString()}</div>
               <div className="font-medium">{item.username} → <span className="text-indigo-600">{capitaliseFirstLetter(item.city)}, {capitaliseFirstLetter(item.country)}</span></div>
-              <div className="text-sm">Season: {item.season} • Colour: {capitaliseFirstLetter(item.color)} • Activity: {capitaliseFirstLetter(item.activity)}</div>
+              <div className="text-sm">SeasoAgen: {item.age} • Travel style: {capitaliseFirstLetter(item.style)} • Activity: {capitaliseFirstLetter(item.activity)}</div>
               <div className="text-sm">{item.recommendation}</div>
             </li>
           ))}

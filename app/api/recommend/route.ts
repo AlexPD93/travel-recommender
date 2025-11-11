@@ -21,21 +21,21 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { username, color, season, activity } = body;
+    const { username, age, style, activity } = body;
 
-    if (!username || !color || !season || !activity) {
+    if (!username || !age || !style || !activity) {
       return NextResponse.json({ error: "missing fields" }, { status: 400 });
     }
 
     // The user prompt is now focused on the task, as the output structure is handled by the generation config.
     const prompt = `
       Recommend exactly one travel destination city for user ${username}. 
-      The city should match the following preferences:
-      - Favourite Colour: ${color}
-      - Favourite Season: ${season}
+      The city should align with the following preferences:
+      - Age: ${age}
+      - Travel Style: ${style}
       - Favourite Activity: ${activity}
       
-      Respond with a JSON object containing the recommended city name, country and two sentences explaining what they can do in that city based on their favourite activity.
+      Respond with a JSON object containing the recommended city name, country and two sentences explaining what they can do in that city based on their favourite activity and travel style.
     `;
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${geminiApiKey}`;
