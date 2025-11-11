@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       - Travel Style: ${style}
       - Favourite Activity: ${activity}
       
-      Respond with a JSON object containing the recommended city name, country and two sentences explaining what they can do in that city based on their favourite activity and travel style.
+      Respond with a JSON object containing the recommended city name, country and two sentences explaining what they can do in that city based on their favourite activity and travel style and age.
     `;
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${geminiApiKey}`;
