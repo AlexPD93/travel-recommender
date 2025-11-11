@@ -1,11 +1,11 @@
-// app/page.tsx
+/* eslint-disable react-hooks/purity */
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { collection, addDoc, serverTimestamp, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "../lib/firebase"; // adjust path if needed
+import { db } from "../lib/firebase";
 
 const FormSchema = z.object({
   username: z.string().min(2),
@@ -83,78 +83,78 @@ export default function Page() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 mb-6">
 
-  {/* Username */}
-  <div className="flex flex-col">
-    <label htmlFor="username" className="mb-1 font-medium text-gray-700">
-      Username
-    </label>
-    <input
-      id="username"
-      {...register("username")}
-      className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-      placeholder="Enter your username"
-    />
-    {errors.username && (
-      <p className="text-red-500 mt-1 text-sm">{errors.username.message}</p>
-    )}
-  </div>
+            {/* Username */}
+            <div className="flex flex-col">
+              <label htmlFor="username" className="mb-1 font-medium text-gray-700">
+                Username
+              </label>
+              <input
+                id="username"
+                {...register("username")}
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your username"
+              />
+              {errors.username && (
+                <p className="text-red-500 mt-1 text-sm">{errors.username.message}</p>
+              )}
+            </div>
 
-  {/* Age */}
-  <div className="flex flex-col">
-    <label htmlFor="age" className="mb-1 font-medium text-gray-700">
-      Age
-    </label>
-    <input
-      id="age"
-      {...register("age")}
-      className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-      placeholder="Enter your age"
-    />
-    {errors.age && (
-      <p className="text-red-500 mt-1 text-sm">{errors.age.message}</p>
-    )}
-  </div>
+            {/* Age */}
+            <div className="flex flex-col">
+              <label htmlFor="age" className="mb-1 font-medium text-gray-700">
+                Age
+              </label>
+              <input
+                id="age"
+                {...register("age")}
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your age"
+              />
+              {errors.age && (
+                <p className="text-red-500 mt-1 text-sm">{errors.age.message}</p>
+              )}
+            </div>
 
-  {/* Favourite style */}
-  <div className="flex flex-col">
-    <label htmlFor="style" className="mb-1 font-medium text-gray-700">
-      Travel style
-    </label>
-     <input
-      id="style"
-      {...register("style")}
-      className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-      placeholder="Enter your travel style e.g. 'Relaxed'"
-    />
-    {errors.style && (
-      <p className="text-red-500 mt-1 text-sm">{errors.style.message}</p>
-    )}
-  </div>
+            {/* Favourite style */}
+            <div className="flex flex-col">
+              <label htmlFor="style" className="mb-1 font-medium text-gray-700">
+                Travel style
+              </label>
+              <input
+                id="style"
+                {...register("style")}
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your travel style e.g. 'Relaxed'"
+              />
+              {errors.style && (
+                <p className="text-red-500 mt-1 text-sm">{errors.style.message}</p>
+              )}
+            </div>
 
-  {/* Favourite Activity */}
-  <div className="flex flex-col">
-    <label htmlFor="activity" className="mb-1 font-medium text-gray-700">
-      Favourite Activity
-    </label>
-    <input
-      id="activity"
-      {...register("activity")}
-      className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-      placeholder="Enter your favourite activity"
-    />
-    {errors.activity && (
-      <p className="text-red-500 mt-1 text-sm">{errors.activity.message}</p>
-    )}
-  </div>
+            {/* Favourite Activity */}
+            <div className="flex flex-col">
+              <label htmlFor="activity" className="mb-1 font-medium text-gray-700">
+                Favourite Activity
+              </label>
+              <input
+                id="activity"
+                {...register("activity")}
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter your favourite activity"
+              />
+              {errors.activity && (
+                <p className="text-red-500 mt-1 text-sm">{errors.activity.message}</p>
+              )}
+            </div>
 
-  <button
-    type="submit"
-    disabled={isSubmitting}
-    className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
-  >
-    {isSubmitting ? "Thinking..." : "Submit"}
-  </button>
-</form>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+            >
+              {isSubmitting ? "Thinking..." : "Submit"}
+            </button>
+      </form>
 
       <section>
         <h2 className="text-xl font-semibold mb-2">Timeline</h2>
@@ -163,7 +163,7 @@ export default function Page() {
             <li key={item.id} className="border p-3 rounded shadow-sm">
               <div className="text-sm text-gray-500">{new Date(item.createdAt?.toDate?.() ?? Date.now()).toLocaleString()}</div>
               <div className="font-medium">{item.username} → <span className="text-indigo-600">{capitaliseFirstLetter(item.city)}, {capitaliseFirstLetter(item.country)}</span></div>
-              <div className="text-sm">SeasoAgen: {item.age} • Travel style: {capitaliseFirstLetter(item.style)} • Activity: {capitaliseFirstLetter(item.activity)}</div>
+              <div className="text-sm">Age: {item.age} • Travel style: {capitaliseFirstLetter(item.style)} • Activity: {capitaliseFirstLetter(item.activity)}</div>
               <div className="text-sm">{item.recommendation}</div>
             </li>
           ))}
